@@ -7,8 +7,6 @@ mongoose.Promise = require('bluebird');
 
 var addFeedback = function(feedback) {
 
-    console.log("adding the following user to db", feedback);
-
     var newFeedback = new Feedback({
         name: feedback.name,
         title: feedback.title,
@@ -25,17 +23,27 @@ var addFeedback = function(feedback) {
 
 var getFeedback = function() {
 
-    return Feedback.find({}).exec().then(data => {
-        console.log("Found data", data);
+    return Feedback.find().sort( { created: -1 } ).then(data => {
         return data;
     }).catch(err => {
-        console.log("Not able to add user", err)
+        console.log("Not able to find comments", err)
+    });
+
+}
+
+var deleteFeedback = function(id) {
+
+    return Feedback.remove({_id: id }).then(data => {
+        console.log("successfully delelted record", data);
+    }).catch(err => {
+        console.log("Not able to find comments", err)
     });
 
 }
 
 module.exports = {
     addFeedback: addFeedback,
-    getFeedback: getFeedback
+    getFeedback: getFeedback,
+    deleteFeedback: deleteFeedback
 }
 
