@@ -2,7 +2,6 @@
 
 var Feedback = require('../models/feedback').Feedback;
 var mongoose = require('mongoose');
-// set Promise provider to bluebird
 mongoose.Promise = require('bluebird');
 
 var addFeedback = function(feedback) {
@@ -38,12 +37,10 @@ var deleteFeedback = function(id) {
     }).catch(err => {
         console.log("Not able to find comments", err)
     });
-
-}
+};
 
 module.exports = {
     addFeedback: addFeedback,
     getFeedback: getFeedback,
     deleteFeedback: deleteFeedback
-}
-
+};

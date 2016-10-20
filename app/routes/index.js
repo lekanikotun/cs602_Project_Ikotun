@@ -1,21 +1,22 @@
 var express = require('express');
 var router = express.Router();
+var restrict = require('../auth/restrict');
 
-router.get('/', function(req, res) {
-  var data = req.app.get('appData');
-  var pagePhotos = [];
-  var pageSpeakers = data.speakers;
+router.get('/', restrict, function (req, res) {
+    var data = req.app.get('appData');
+    var pagePhotos = [];
+    var pageSpeakers = data.speakers;
 
-  data.speakers.forEach(function(item) {
-    pagePhotos = pagePhotos.concat(item.artwork);
-  });
+    data.speakers.forEach(function (item) {
+        pagePhotos = pagePhotos.concat(item.artwork);
+    });
 
-  res.render('index', {
-    pageTitle: 'Home',
-    artwork: pagePhotos,
-    speakers: pageSpeakers,
-    pageID: 'home'
-  });
+    res.render('index', {
+        pageTitle: 'Home',
+        artwork: pagePhotos,
+        speakers: pageSpeakers,
+        pageID: 'home'
+    });
 
 });
 

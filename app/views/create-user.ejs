@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><% include partials/template/head.ejs %></head>
+<body id="<%= pageID %>">
+<% include partials/template/header.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <h1 class="feedback-form-title">Login</h1>
+            <% if (typeof error !== 'undefined') { %><span><%=error%></span><% } %>
+            <span><%=error%></span>
+            <form class="feedback-form" method="post" action="/create" novalidate>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" value="<%=input.firstName%>">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">lastName</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" value="<%=input.lastName%>">
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <input type="text" class="form-control" id="role" placeholder="Enter your role" value="<%=input.role%>">
+                </div>
+                <div class="email">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" placeholder="Enter your email" value="<%=input.email%>">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-default pull-right">Create Account</button>
+            </form>
+        </div><!-- primary -->
+    </div>
+</div><!-- container -->
+</body>
+</html>

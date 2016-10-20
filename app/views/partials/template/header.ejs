@@ -29,8 +29,10 @@
           </li>
           <li><a href="/feedback">Feedback</a></li>
           <li><a href="/chat">Chat</a></li>
+          <li><%if (fullname) { %><a href="/logout">logout</a><% } else { %><a href="/login">Login</a><% } %></li>
         </ul><!-- nav -->
       </div><!-- navbar-collapse -->
     </div><!-- container -->
   </nav>
 </header>
+<%if (fullname) { %><p>Hi, <i><%= fullname %></i></p><% } %>

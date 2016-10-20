@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+// var restrict = require('../auth/restrict');
 
 router.get('/speakers', function(req, res) {
   var data = req.app.get('appData');

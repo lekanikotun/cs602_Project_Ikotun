@@ -1,21 +1,18 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
 var feedbackService = require('../services/feedback');
+var restrict = require('../auth/restrict');
 
-router.get('/api', function(req, res) {
-
+router.get('/api', restrict, function(req, res) {
     feedbackService.getFeedback().then(data => {
         res.json(data);
     });
 });
 
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: false }));
-
-router.post('/api', function(req, res) {
+router.post('/api', restrict, function(req, res) {
 
     var feedback = req.body;
+    console.log(req.body);
     feedbackService.addFeedback(feedback).then(() => {
         feedbackService.getFeedback().then(data => {
             res.json(data);
@@ -26,9 +23,7 @@ router.post('/api', function(req, res) {
 });
 
 
-router.delete('/api/:id', function(req, res) {
-    feedbackData.splice(req.params.id, 1);
-
+router.delete('/api/:id', restrict, function(req, res) {
     feedbackService.deleteFeedback(req.params.id).then(() => {
         feedbackService.getFeedback().then(data => {
             res.json(data);
