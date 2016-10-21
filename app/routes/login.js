@@ -5,15 +5,10 @@ var passport = require('passport');
 var config = require('../config');
 var userService = require('../services/user-service');
 
-/* GET users listing. */
-/*router.get('/signup', function(req, res, next) {
-    res.send('respond with a resource');
-});*/
-
 // GET /users/create
-router.get('/signup', function(req, res, next) {
+router.get('/create', function(req, res, next) {
     var vm = {
-        pageID:'signup',
+        pageID:'create',
         pageTitle:'Create an account',
         error: '',
         input: {
@@ -26,19 +21,9 @@ router.get('/signup', function(req, res, next) {
     res.render('create-user', vm);
 });
 
-router.post('/signup', function(req, res, next) {
-
-    console.log("I am here", req.body);
+router.post('/create', function(req, res, next) {
     
-    req.body = {
-        'firstName': 'Lekan',
-        'lastName': 'Babe',
-        'role': 'Developer',
-        'email': 'lekan@ikotun.com',
-        'password': 'pass123'
-    }
-    
-    console.log("This is the signup form");
+    console.log("This is the Create form");
     userService.addUser(req.body, function(err) {
         if (err) {
             console.log(err);
@@ -46,21 +31,26 @@ router.post('/signup', function(req, res, next) {
             var vm = {
                 title: 'Create an account',
                 input: req.body,
-                pageID:'signup',
+                pageID:'create',
                 pageTitle:'Create an account',
                 error: 'An error occurred. Please try again.'
             };
             delete vm.input.password;
             return res.render('create-user', vm);
         }
-        req.login(req.body, function(err) {
-            res.redirect('/login');
+        return req.login(req.body, function(err) {
+            if (err) {
+                console.log("An error occurred while trying to log in");
+                return res.redirect('/login')
+            }
+            res.redirect('/');
         });
     });
 });
 
 // GET /login
 router.get('/login', function(req, res, next) {
+    console.log("this is session obj", req.session);
     var vm = {
         pageID:'login',
         pageTitle: 'Login'
@@ -68,13 +58,13 @@ router.get('/login', function(req, res, next) {
     res.render('login', vm);
 });
 
-router.post('/login', function(req, res, next) {
-    req.session.orderId = 123456;
-    if (req.body.rememberMe) {
-        req.session.cookie.maxAge = config.cookieMaxAge;
-    }
-    next();
-}, passport.authenticate('local', {failureRedirect:'/', failureFlash: 'Invalid credentials', successRedirect:'/login'}));
+router.post('/login',
+    passport.authenticate('local', {
+        failureRedirect:'/login',
+        successRedirect: '/orders',
+        failureFlash: 'Invalid username and password combination'
+    })
+);
 
 router.get('/logout', function(req, res, next) {
     req.logout();

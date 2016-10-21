@@ -9,6 +9,18 @@
   <script src="/js/feedback.js"></script>
 <% } %>
 
+<% if(pageID == 'create') { %>
+  <script src="/js/create.js"></script>
+<% } %>
+
+<% if(pageID == 'signup') { %>
+  <script src="/js/signup.js"></script>
+<% } %>
+
+<% if(pageID == 'login') { %>
+  <script src="/js/login.js"></script>
+<% } %>
+
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script src="/js/chat.js"></script>
 <script src="/reload/reload.js"></script>

@@ -6,8 +6,7 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
-var addUser = function(user, next) {    
-    console.log("I am here", user);
+var addUser = function(user, next) {
     bcrypt.hash(user.password, 10, function(err, hash) {
 
         if (err) {
@@ -19,7 +18,7 @@ var addUser = function(user, next) {
             lastName: user.lastName,
             role: user.role,
             email: user.email.toLowerCase(),
-            password: user.password
+            password: hash
         });
         newUser.save(function(err) {
             if (err) {
@@ -30,47 +29,13 @@ var addUser = function(user, next) {
     });
 };
 
-/*
-    return new Promise(function(resolve, reject) {
-
-        findUser(user.email).then(function(user) {
-            if (user) {
-                reject('That email is already in use.');
-            }
-        }).then(() => {
-
-            bcrypt.hash(user.password, 10, function (err, hash) {
-                if (err) {
-                    return reject(err);
-                }
-                resolve(hash);
-            }).then(hash => {
-                user.password = hash;
-
-                var newUser = new User({
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    role: user.role,
-                    email: user.email.toLowerCase(),
-                    password: user.password
-                });
-
-                return newUser.save().then(function (data) {
-                    console.log("Successfully added user", data);
-                    return JSON.stringify(data);
-                }).catch(err => {
-                    console.log("Not able to add user", err);
-                });
-            });
-        });
-    });
-};*/
 
 var _findUser = function(email, next) {
     User.findOne({email: email.toLowerCase()}, function(err, user) {
         next(err, user);
     });
 };
+
 
 var findUser = function(email) {
     userSchema.path('email').validate(function(email, next) {

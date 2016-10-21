@@ -3,13 +3,14 @@
 var express = require('express');
 var path = require('path');
 //var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var reload = require('reload');
 var dataFile = require('./data/data.json');
 var io = require('socket.io')();
 var passport = require('passport');
 var expressSession = require('express-session');
+var flash = require('connect-flash');
 var mongoose = require('mongoose');
 var config = require('./config');
 var passportConfig = require('./auth/passport-config');
@@ -28,7 +29,7 @@ app.set('view engine', 'ejs');
 //static assets folder
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(expressSession(
     {
@@ -36,7 +37,8 @@ app.use(expressSession(
         saveUninitialized: false,
         resave: false
     }
-))
+));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static('app/public'));
