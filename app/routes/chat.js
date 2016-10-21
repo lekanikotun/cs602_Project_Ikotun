@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var restrict = require('../auth/restrict');
+// var restrict = require('../auth/restrict');
 
-router.get('/chat', restrict, function(req, res) {
+router.get('/chat', function(req, res) {
 
   res.render('chat', {
     pageTitle: 'Chat',

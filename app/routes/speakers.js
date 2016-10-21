@@ -32,7 +32,7 @@ router.get('/speakers/:speakerid', function(req, res) {
   });
 
   res.render('speakers', {
-    pageTitle: 'Speaker Info',
+    pageTitle: 'Instructor Info',
     artwork: pagePhotos,
     speakers: pageSpeakers,
     pageID: 'speakerDetail'
