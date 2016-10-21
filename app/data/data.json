@@ -1,22 +1,22 @@
 {
-  "speakers": [{
+  "instructors": [{
     "title" : "CS601",
     "name": "Suresh Kalathur",
-    "shortname" : "Lorenzo_Garcia",
+    "shortname" : "",
     "summary" : "Course Description",
     "description": "<p>Application Development</p>",
     "artwork": []
   },{
     "title" : "CS602",
     "name": "Fazil Haroon",
-    "shortname" : "Lorenzo_Garcia",
+    "shortname" : "",
     "summary": "Course Description",
     "description": "<p>Computer Information Systems</p>",
     "artwork" : []
   },{
     "title" : "CS701",
     "name": "James Brown",
-    "shortname" : "Lorenzo_Garcia",
+    "shortname" : "",
     "summary": "Course Description",
     "description": "<p>Software Engineering</p>",
     "artwork" : []

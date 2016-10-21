@@ -2,31 +2,31 @@ var express = require('express');
 var router = express.Router();
 // var restrict = require('../auth/restrict');
 
-router.get('/speakers', function(req, res) {
+router.get('/instructors', function(req, res) {
   var data = req.app.get('appData');
   var pagePhotos = [];
-  var pageSpeakers = data.speakers;
+  var instructors = data.instructors;
 
-  data.speakers.forEach(function(item) {
+  data.instructors.forEach(function(item) {
     pagePhotos = pagePhotos.concat(item.artwork);
   });
 
-  res.render('speakers', {
-    pageTitle: 'Speakers',
+  res.render('instructors', {
+    pageTitle: 'Instructors',
     artwork: pagePhotos,
-    speakers: pageSpeakers,
+    instructors: instructors,
     pageID: 'speakerList'
   });
 });
 
-router.get('/speakers/:speakerid', function(req, res) {
+router.get('/instructors/:instructorid', function(req, res) {
   var data = req.app.get('appData');
   var pagePhotos = [];
-  var pageSpeakers = [];
+  var instructors = [];
 
-  data.speakers.forEach(function(item) {
+  data.instructors.forEach(function(item) {
     if (item.shortname == req.params.speakerid) {
-      pageSpeakers.push(item);
+      instructors.push(item);
       pagePhotos = pagePhotos.concat(item.artwork);
     }
   });
@@ -34,7 +34,7 @@ router.get('/speakers/:speakerid', function(req, res) {
   res.render('speakers', {
     pageTitle: 'Instructor Info',
     artwork: pagePhotos,
-    speakers: pageSpeakers,
+    instructors: instructors,
     pageID: 'speakerDetail'
   });
 });

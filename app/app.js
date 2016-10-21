@@ -2,7 +2,6 @@
 
 var express = require('express');
 var path = require('path');
-//var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var reload = require('reload');
@@ -33,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(expressSession(
     {
-        secret: 'get hungry',
+        secret: 'secretkey',
         saveUninitialized: false,
         resave: false
     }
@@ -43,7 +42,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static('app/public'));
 app.use(require('./routes/index'));
-app.use(require('./routes/speakers'));
+app.use(require('./routes/instructors'));
 app.use(require('./routes/feedback'));
 app.use(require('./routes/signup'));
 app.use(require('./routes/login'));
@@ -56,18 +55,9 @@ app.use(require('./routes/chat'));
 app.set('port', process.env.PORT || 3000 );
 app.set('appData', dataFile);
 
-app.locals.siteTitle = 'Roux Meetups';
-app.locals.allSpeakers = dataFile.speakers;
-app.locals.fullname = 'Leakan Ikotun';
-
-//var routes = require('./routes/index');
-//var users = require('./routes/users');
-
-/*app.use(function(req, res, next) {
- res.header("Access-Control-Allow-Origin", "*");
- res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
- next();
- });*/
+app.locals.siteTitle = 'Learning Management System';
+app.locals.allInstructors = dataFile.instructors;
+app.locals.fullname = 'Lekan Ikotun';
 
 
 var server = app.listen(app.get('port'), function() {
